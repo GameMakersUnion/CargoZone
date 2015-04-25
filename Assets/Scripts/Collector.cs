@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : Damagable {
+public class Collector : MonoBehaviour {
 
 	// Use this for initialization
-	void Start ()
-	{
-	    health = 1f;
+	void Start () {
+	
 	}
 	
 	// Update is called once per frame
