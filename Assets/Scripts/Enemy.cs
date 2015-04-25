@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Ship : Damagable {
+public class Enemy : Damagable {
 
 	// Use this for initialization
 	void Start () {

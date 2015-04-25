@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Ship : Damagable {
+public class Junk : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
