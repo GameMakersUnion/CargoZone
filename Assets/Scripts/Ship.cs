@@ -18,9 +18,9 @@ public class Ship : Damagable {
 
         health = MAX_HEALTH;
 
-        cannonObject = GameObject.Find("SmallCannon");
+        cannonObject = GameObject.Find("Launcher");
         
-        if (cannon == null)
+        if (cannonObject == null)
         {
             Debug.Log("Cannon missing!");
         }
