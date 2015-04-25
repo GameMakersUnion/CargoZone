@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Collector : MonoBehaviour {
+public class ShipBig : MonoBehaviour {
 
     private Hold hold;
 
