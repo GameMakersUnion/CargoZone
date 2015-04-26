@@ -14,7 +14,7 @@ public class Cannon : MonoBehaviour
 
     private Transform junkHold;
     public List<GameObject> junks;
-    private float forceFactorMult = 5f;
+    private float forceFactorMult = 50f;
 
 	// Use this for initialization
 	void Start ()
@@ -42,7 +42,7 @@ public class Cannon : MonoBehaviour
         foreach (GameObject junk in junks)
         {
             Rigidbody2D rb = junk.GetComponent<Rigidbody2D>();
-            rb.velocity += Vector2.up; // * forceFactorMult;
+            rb.AddForce(Vector2.up * forceFactorMult);// += Vector2.up; // * forceFactorMult;
         }
         ReadJunk();
     }

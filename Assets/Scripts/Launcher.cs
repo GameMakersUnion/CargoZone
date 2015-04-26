@@ -29,8 +29,9 @@ public class Launcher : MonoBehaviour {
     {
         //if (cannon != null && other.gameObject.tag == "Junk")
         {
-            other.GetComponent<Rigidbody2D>().velocity.Normalize();
-            other.GetComponent<Rigidbody2D>().velocity += new Vector2(ship.transform.up.x, ship.transform.up.y) * 5f;
+            //other.GetComponent<Rigidbody2D>().velocity.Normalize();
+            other.GetComponent<Rigidbody2D>().velocity = new Vector2(ship.transform.up.x, ship.transform.up.y) * 10f;
+            //other.GetComponent<Rigidbody2D>().AddForce(new Vector2(ship.transform.up.x, ship.transform.up.y) );
 
             other.transform.position = launchHere.transform.position;
             Debug.Log(ship.transform.up + " TELEPORTED");
