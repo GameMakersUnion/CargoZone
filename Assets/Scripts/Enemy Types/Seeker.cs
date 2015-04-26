@@ -39,7 +39,7 @@ public class Seeker : MonoBehaviour {
             }else
             {
                 //:If too far away
-                Debug.Log(Vector2.Distance(target.transform.position, transform.position));
+                //Debug.Log(Vector2.Distance(target.transform.position, transform.position));
                 if (Vector2.Distance(target.transform.position, transform.position) > 10f)
                 {
                     //Apply forward force to towards player
