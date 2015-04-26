@@ -9,10 +9,11 @@ using System.Collections.Generic;
   
  **/
 
-public class FireControl : MonoBehaviour
+public class ShipControl : MonoBehaviour
 {
 
     private Transform junkHold;
+    private Transform sides;
     public List<GameObject> junks;
     private List<GameObject> magicJunks; 
 
@@ -29,7 +30,9 @@ public class FireControl : MonoBehaviour
             ReadJunk();
 	        magicJunks = junks;
 	    }
-    }
+
+	    sides = this.transform.Find("Loader").Find("Sides");
+	}
 
     // Update is called once per frame
     void Update () {
@@ -76,6 +79,17 @@ public class FireControl : MonoBehaviour
             GameObject newJunk = Util.TransferJunk(junk, this.transform.Find("Loader").gameObject, "ShipBig", 1, junkHold.gameObject);
             GameObject fuck = (GameObject)Instantiate(newJunk, junkHold.position, junkHold.rotation);
             fuck.transform.position = this.transform.Find("Loader").position;
+        }
+    }
+
+
+    //for fun unclogging purposes
+    public void SwingCargoDoors()
+    {
+        foreach (Transform child in sides)
+        {
+            //toggle doors
+            child.GetComponent<PolygonCollider2D>().isTrigger = !child.GetComponent<PolygonCollider2D>().isTrigger;
         }
 
     }
