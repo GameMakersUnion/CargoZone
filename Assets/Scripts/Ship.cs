@@ -8,7 +8,7 @@ public class Ship : Damagable {
     private const float ROTATION = 500;
     private const float MAX_HEALTH = 5;
 
-    private FireControl fireControl;
+    private ShipControl shipControl;
 
     private GameObject cannonObject;
 
@@ -24,11 +24,11 @@ public class Ship : Damagable {
 	        Debug.Log("Launcher gameobject missing!");
 	    }
 
-        fireControl = GameObject.Find("ShipAvalancheBigOld").GetComponent<FireControl>();
+        shipControl = GameObject.Find("ShipAvalancheBigOld").GetComponent<ShipControl>();
 
-        if (fireControl == null)
+        if (shipControl == null)
         {
-            Debug.Log("FireControl script missing!");
+            Debug.Log("ShipControl script missing!");
         }
 
 
@@ -60,14 +60,19 @@ public class Ship : Damagable {
             GetComponent<Rigidbody2D>().AddTorque(-ROTATION * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && fireControl != null)
+        if (Input.GetKeyDown(KeyCode.Space) && shipControl != null)
         {
-            fireControl.Launch();
+            shipControl.Launch();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            fireControl.MagicRefill();
+            shipControl.MagicRefill();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            shipControl.SwingCargoDoors();
         }
 	}
 
