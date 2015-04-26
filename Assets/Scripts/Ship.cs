@@ -8,26 +8,34 @@ public class Ship : Damagable {
     private const float ROTATION = 500;
     private const float MAX_HEALTH = 5;
 
-    private Cannon cannon;
+    private FireControl fireControl;
 
     private GameObject cannonObject;
 
 	// Use this for initialization
 	void Start () {
-        //cannon = GameObject.Find("ShipBig").GetComponent<Cannon>();
 
         health = MAX_HEALTH;
 
         cannonObject = GameObject.Find("Launcher");
-        
-        if (cannonObject == null)
+
+	    if (cannonObject == null)
+	    {
+	        Debug.Log("Launcher gameobject missing!");
+	    }
+
+        fireControl = GameObject.Find("ShipAvalancheBigOld").GetComponent<FireControl>();
+
+        if (fireControl == null)
         {
-            Debug.Log("Cannon missing!");
+            Debug.Log("FireControl script missing!");
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+
+    }
+
+    // Update is called once per frame
+    void Update () {
         Vector2 forward = new Vector2(-Mathf.Sin(transform.localEulerAngles.z*Mathf.PI/180),Mathf.Cos(transform.localEulerAngles.z*Mathf.PI/180));
         //Debug.Log(health);
         if (Input.GetKey(KeyCode.W))
@@ -52,9 +60,14 @@ public class Ship : Damagable {
             GetComponent<Rigidbody2D>().AddTorque(-ROTATION * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && cannon != null)
+        if (Input.GetKeyDown(KeyCode.Space) && fireControl != null)
         {
-            //cannon.launch();
+            fireControl.Launch();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            fireControl.MagicRefill();
         }
 	}
 
@@ -67,5 +80,6 @@ public class Ship : Damagable {
     {
         junk.transform.position = cannonObject.transform.position;
     }
+
 
 }

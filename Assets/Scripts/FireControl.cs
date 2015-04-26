@@ -9,12 +9,12 @@ using System.Collections.Generic;
   
  **/
 
-public class Cannon : MonoBehaviour
+public class FireControl : MonoBehaviour
 {
 
     private Transform junkHold;
     public List<GameObject> junks;
-    private float forceFactorMult = 50f;
+    private List<GameObject> magicJunks; 
 
 	// Use this for initialization
 	void Start ()
@@ -27,7 +27,7 @@ public class Cannon : MonoBehaviour
 	    else
 	    {
             ReadJunk();
-	        launch();
+	        magicJunks = junks;
 	    }
     }
 
@@ -37,12 +37,14 @@ public class Cannon : MonoBehaviour
 	}
 
     //Launch applies force to items in Loader bay.
-    void launch()
+    public void Launch()
     {
+        float forceInside = 300f;
+
         foreach (GameObject junk in junks)
         {
             Rigidbody2D rb = junk.GetComponent<Rigidbody2D>();
-            rb.AddForce(Vector2.up * forceFactorMult);// += Vector2.up; // * forceFactorMult;
+            rb.AddForce(Vector2.up * forceInside);
         }
         ReadJunk();
     }
@@ -58,5 +60,23 @@ public class Cannon : MonoBehaviour
                 junks.Add(child.gameObject);
             }
         }
+    }
+
+    public void Scoop()
+    {
+        
+    }
+
+    //for debugging purposes
+    public void MagicRefill()
+    {
+        foreach (GameObject junk in magicJunks)
+        {
+            //from naked instantiation to ship... has side effects
+            GameObject newJunk = Util.TransferJunk(junk, this.transform.Find("Loader").gameObject, "ShipBig", 1, junkHold.gameObject);
+            GameObject fuck = (GameObject)Instantiate(newJunk, junkHold.position, junkHold.rotation);
+            fuck.transform.position = this.transform.Find("Loader").position;
+        }
+
     }
 }

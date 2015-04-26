@@ -4,23 +4,23 @@ using System.Collections;
 public class Loader : MonoBehaviour
 {
 
-    private Cannon cannon;
+    private FireControl fireControl;
 
     void Start()
     {
-        cannon = GameObject.Find("ShipAvalancheBigOld").GetComponent<Cannon>();
-        if (cannon == null)
+        fireControl = GameObject.Find("ShipAvalancheBigOld").GetComponent<FireControl>();
+        if (fireControl == null)
         {
-            Debug.LogWarning("<color=maroon>Cannon not found </color>");
+            Debug.LogWarning("<color=maroon>FireControl not found </color>");
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (cannon != null && other.gameObject.tag == "Junk")
+        if (fireControl != null && other.gameObject.tag == "Junk")
         {
-            cannon.junks.Remove(other.gameObject);
-            //Debug.Log("Rmoved junk from Cannon's junks list");
+            fireControl.junks.Remove(other.gameObject);
+            //Debug.Log("Rmoved junk from FireControl's junks list");
         }
     }
 }

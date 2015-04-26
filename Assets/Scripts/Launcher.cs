@@ -3,20 +3,37 @@ using System.Collections;
 
 public class Launcher : MonoBehaviour {
 
-    private Cannon cannon;
-    private GameObject launchHere;
+    private FireControl fireControl;
+    private GameObject smallCannon;
     private GameObject ship;
+    private GameObject junkTop;
 
     // Use this for initialization
     void Start () {
-        cannon = GameObject.Find("ShipAvalancheBigOld").GetComponent<Cannon>();
-        if (cannon == null)
+        fireControl = GameObject.Find("ShipAvalancheBigOld").GetComponent<FireControl>();
+        if (fireControl == null)
         {
-            Debug.LogWarning("<color=maroon>Cannon not found </color>");
+            Debug.LogWarning("<color=maroon>FireControl not found </color>");
         }
 
         ship = GameObject.Find("ShipAvalanche");
-        launchHere = ship.transform.Find("LaunchHere").gameObject;
+        if (ship == null)
+        {
+            Debug.LogWarning("<color=maroon>Ship not found </color>");
+        }
+
+
+        smallCannon = ship.transform.Find("SmallCannon").gameObject;
+        if (smallCannon == null)
+        {
+            Debug.LogWarning("<color=maroon>SmallCannon not found </color>");
+        }
+
+        junkTop = GameObject.Find("JunkUni");
+        if (junkTop == null)
+        {
+            Debug.LogWarning("<color=maroon>Top level JunkUni item not found </color>");
+        }
 
     }
 
@@ -27,14 +44,15 @@ public class Launcher : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D other)
     {
-        //if (cannon != null && other.gameObject.tag == "Junk")
+        const float forceOutside = 10f;
+        //if (FireControl != null && other.gameObject.tag == "Junk")
         {
-            //other.GetComponent<Rigidbody2D>().velocity.Normalize();
-            other.GetComponent<Rigidbody2D>().velocity = new Vector2(ship.transform.up.x, ship.transform.up.y) * 10f;
-            //other.GetComponent<Rigidbody2D>().AddForce(new Vector2(ship.transform.up.x, ship.transform.up.y) );
+            other.GetComponent<Rigidbody2D>().velocity = new Vector2(ship.transform.up.x, ship.transform.up.y) * forceOutside;
+            //Debug.Log( other.name +  " TELEPORTED");
 
-            other.transform.position = launchHere.transform.position;
-            Debug.Log(ship.transform.up + " TELEPORTED");
+            //change properties to be on different layers.
+            Util.TransferJunk(other.gameObject, smallCannon, "Default", 0, junkTop);
+
         }
 
     }

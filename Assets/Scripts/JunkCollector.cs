@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Hold : MonoBehaviour {
+public class JunkCollector : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -12,5 +12,4 @@ public class Hold : MonoBehaviour {
 	void Update () {
 	
 	}
-
 }
